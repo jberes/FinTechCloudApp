@@ -4,8 +4,6 @@ namespace FinTechCloud
 {
     public class PriceHistory
     {
-        // Random instance should be static to prevent repeating numbers
-        // during rapid object creation.
         private static readonly Random rand = new Random();
 
         public List<StockPrice> GenerateStockPriceData(decimal priceStart, decimal volumeStart)
@@ -15,30 +13,28 @@ namespace FinTechCloud
 
         public List<StockPrice> GenerateTempPriceData()
         {
-            // Fixed starting values for temp data
             return GeneratePriceData(200, 5000, 1000);
         }
 
         private List<StockPrice> GeneratePriceData(decimal priceStart, decimal volumeStart, int dataCount)
         {
             DateTime dateEnd = DateTime.Now;
-
             decimal priceRange = priceStart * 0.05m;
             decimal volumeRange = volumeStart * 0.05m;
-
             decimal v = volumeStart;
             decimal o = priceStart;
-            decimal h = o + (decimal)rand.NextDouble() * priceRange;
-            decimal l = o - (decimal)rand.NextDouble() * priceRange;
-            decimal c = l + (decimal)rand.NextDouble() * (h - l);
+            decimal h = Math.Round(o + (decimal)(new Random().NextDouble() * (double)priceRange));
+            decimal l = Math.Round(o - (decimal)(new Random().NextDouble() * (double)priceRange));
+            decimal c = Math.Round(l + (decimal)(new Random().NextDouble() * (double)(h - l)));
 
-            List<StockPrice> stockData = new List<StockPrice>(dataCount);
-
+            DateTime time = AddDays(dateEnd, 0);
+            List<StockPrice> stockData = new List<StockPrice>();
+            Random rand = new Random();
             for (int i = 0; i < dataCount; i++)
             {
                 stockData.Add(new StockPrice
                 {
-                    Date = dateEnd.AddDays(-i),
+                    Date = time,
                     Open = o,
                     High = h,
                     Low = l,
@@ -47,17 +43,22 @@ namespace FinTechCloud
                 });
 
                 var change = rand.NextDouble() - 0.499;
-                o = c + (decimal)change * priceRange;
-                h = o + (decimal)rand.NextDouble() * priceRange;
-                l = o - (decimal)rand.NextDouble() * priceRange;
-                c = l + (decimal)rand.NextDouble() * (h - l);
-                v += (decimal)change * volumeRange;
+                o = c + Math.Round((decimal)change * priceRange);
+                h = o + Math.Round((decimal)(rand.NextDouble() * (double)priceRange));
+                l = o - Math.Round((decimal)(rand.NextDouble() * (double)priceRange));
+                c = l + Math.Round((decimal)(rand.NextDouble() * (double)(h - l)));
+                v = v + Math.Round((decimal)change * volumeRange);
+                time = AddDays(time, -1);
             }
 
             stockData.Reverse();
             return stockData;
-        }    
-    }
-    public record StockData(DateTime Date, decimal Open, decimal High, decimal Low, decimal Close, decimal Volume);
+        }
 
+        private DateTime AddDays(DateTime date, int days)
+        {
+            return date.AddDays(days);
+        }
+    }
+        public record StockData(DateTime Date, decimal Open, decimal High, decimal Low, decimal Close, decimal Volume);
 }
