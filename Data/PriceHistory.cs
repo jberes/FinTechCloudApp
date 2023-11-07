@@ -27,7 +27,7 @@ namespace FinTechCloud
             decimal l = Math.Round(o - (decimal)(new Random().NextDouble() * (double)priceRange));
             decimal c = Math.Round(l + (decimal)(new Random().NextDouble() * (double)(h - l)));
 
-            DateTime time = AddDays(dateEnd, 0);
+            DateTime time = DateTime.Now; // AddDays(dateEnd, 0);
             List<StockPrice> stockData = new List<StockPrice>();
             Random rand = new Random();
             for (int i = 0; i < dataCount; i++)
