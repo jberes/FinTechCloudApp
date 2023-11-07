@@ -5,7 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+      builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+    );
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -37,14 +46,30 @@ app.MapGet("/stocks/{symbol}", (string symbol, HttpContext http) =>
 .Produces(StatusCodes.Status404NotFound);
 
 
-app.MapGet("/stockprices", (decimal priceStart, decimal volumeStart) =>
+app.MapGet("/stockprices/{priceStart}/{volumeStart}", (decimal priceStart, decimal volumeStart) =>
 {
     var generator = new PriceHistory();
     var stockData = generator.GenerateStockPriceData(priceStart, volumeStart);
     //return Results.Ok(stockData);
-    return stockData is not null ? Results.Ok(stockData) : Results.NotFound();
+    return stockData is not null && stockData.Any()
+        ? Results.Ok(stockData)
+        : Results.NotFound();
 })
-.Produces<PriceHistory.StockData>(StatusCodes.Status200OK)
+.Produces<List<StockData>>(StatusCodes.Status200OK) // Updated to reflect list return type
 .Produces(StatusCodes.Status404NotFound);
 
+
+app.MapGet("/stockpricestemp", () =>
+{
+    var generator = new PriceHistory();
+    var stockDataList = generator.GenerateTempPriceData(); // Method should now return a list
+    return stockDataList is not null && stockDataList.Any()
+        ? Results.Ok(stockDataList)
+        : Results.NotFound();
+})
+.Produces<List<StockData>>(StatusCodes.Status200OK) // Updated to reflect list return type
+.Produces(StatusCodes.Status404NotFound);
+
+
+//app.UseAuthorization();
 app.Run();
