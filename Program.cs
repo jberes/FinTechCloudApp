@@ -1,13 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using FinTechCloud;
+using System.Text.Json;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -16,29 +15,39 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/stocks", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var json = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "Data", "stocks.json"));
+    var stocks = JsonSerializer.Deserialize<List<Stock>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    return stocks;
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/stocks/{symbol}", (string symbol, HttpContext http) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var jsonFilePath = Path.Combine(app.Environment.ContentRootPath, "Data", "stocks.json");
+    var json = File.ReadAllText(jsonFilePath);
+    var stocks = JsonSerializer.Deserialize<List<Stock>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+    if (stocks is null)
+    {
+        return Results.Problem("The stocks data could not be loaded.");
+    }
+
+    var stock = stocks.FirstOrDefault(s => s.StockSymbol == symbol);
+    return stock is not null ? Results.Ok(stock) : Results.NotFound();
 })
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+.Produces<Stock>(StatusCodes.Status200OK) 
+.Produces(StatusCodes.Status404NotFound);
+
+
+app.MapGet("/GenerateStockPriceData", (decimal priceStart, decimal volumeStart) =>
+{
+    var generator = new PriceHistory();
+    var stockData = generator.GenerateStockPriceData(priceStart, volumeStart);
+    //return Results.Ok(stockData);
+    return stockData is not null ? Results.Ok(stockData) : Results.NotFound();
+})
+.Produces<PriceHistory.StockData>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound);
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
