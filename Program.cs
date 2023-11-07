@@ -7,11 +7,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -40,7 +37,7 @@ app.MapGet("/stocks/{symbol}", (string symbol, HttpContext http) =>
 .Produces(StatusCodes.Status404NotFound);
 
 
-app.MapGet("/GenerateStockPriceData", (decimal priceStart, decimal volumeStart) =>
+app.MapGet("/stockprices", (decimal priceStart, decimal volumeStart) =>
 {
     var generator = new PriceHistory();
     var stockData = generator.GenerateStockPriceData(priceStart, volumeStart);
