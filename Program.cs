@@ -58,6 +58,16 @@ app.MapGet("/stockprices/{priceStart}/{volumeStart}", (decimal priceStart, decim
 .Produces<List<StockData>>(StatusCodes.Status200OK) // Updated to reflect list return type
 .Produces(StatusCodes.Status404NotFound);
 
+app.MapGet("/stockprices/{symbol}/", (string symbol, HttpContext http) =>
+{
+    var generator = new PriceHistory();
+    var stockDataList = generator.GenerateTempPriceData(); // Method should now return a list
+    return stockDataList is not null && stockDataList.Any()
+        ? Results.Ok(stockDataList)
+        : Results.NotFound();
+})
+.Produces<List<StockData>>(StatusCodes.Status200OK) // Updated to reflect list return type
+.Produces(StatusCodes.Status404NotFound);
 
 app.MapGet("/stockpricestemp", () =>
 {
