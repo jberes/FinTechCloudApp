@@ -1,7 +1,7 @@
 [
   
    {
-      "employeeID": 1,
+      "employeeId": 1,
       "lastName": "Davolio",
       "firstName": "Nancy",
       "title": "Sales Representative",
@@ -22,7 +22,7 @@
       "fullName": "Ms. Nancy Davolio"
   },
   {
-      "employeeID": 2,
+      "employeeId": 2,
       "lastName": "Fuller",
       "firstName": "Andrew",
       "title": "Vice President, Sales",
@@ -43,7 +43,7 @@
       "fullName": "Dr. Andrew Fuller"
   },
   {
-      "employeeID": 3,
+      "employeeId": 3,
       "lastName": "Leverling",
       "firstName": "Janet",
       "title": "Sales Representative",
@@ -64,7 +64,7 @@
       "fullName": "Ms. Janet Leverling"
   },
   {
-      "employeeID": 4,
+      "employeeId": 4,
       "lastName": "Peacock",
       "firstName": "Margaret",
       "title": "Sales Representative",
@@ -85,7 +85,7 @@
       "fullName": "Mrs. Margaret Peacock"
   },
   {
-      "employeeID": 5,
+      "employeeId": 5,
       "lastName": "Buchanan",
       "firstName": "Steven",
       "title": "Sales Manager",
@@ -106,7 +106,7 @@
       "fullName": "Mr. Steven Buchanan"
   },
   {
-      "employeeID": 6,
+      "employeeId": 6,
       "lastName": "Suyama",
       "firstName": "Michael",
       "title": "Sales Representative",
@@ -127,7 +127,7 @@
       "fullName": "Mr. Michael Suyama"
   },
   {
-      "employeeID": 7,
+      "employeeId": 7,
       "lastName": "King",
       "firstName": "Robert",
       "title": "Sales Representative",
@@ -148,7 +148,7 @@
       "fullName": "Mr. Robert King"
   },
   {
-      "employeeID": 8,
+      "employeeId": 8,
       "lastName": "Callahan",
       "firstName": "Laura",
       "title": "Inside Sales Coordinator",
@@ -169,7 +169,7 @@
       "fullName": "Ms. Laura Callahan"
   },
   {
-      "employeeID": 9,
+      "employeeId": 9,
       "lastName": "Dodsworth",
       "firstName": "Anne",
       "title": "Sales Representative",
