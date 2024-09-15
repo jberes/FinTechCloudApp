@@ -28,6 +28,27 @@ app.MapGet("/stocks", () =>
     return stocks;
 });
 
+app.MapGet("/stocks/brokers", () =>
+{
+    // Load stocks data
+    var stocksJson = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "Data", "stocks.json"));
+    var stocks = JsonSerializer.Deserialize<List<Stock>>(stocksJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+    // Load employees data
+    var employeesJson = File.ReadAllText(Path.Combine(builder.Environment.ContentRootPath, "Data", "employees.json"));
+    var employees = JsonSerializer.Deserialize<List<Employee>>(employeesJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+    // Randomly assign an employee to each stock
+    var random = new Random();
+    foreach (var stock in stocks)
+    {
+        var randomEmployee = employees[random.Next(employees.Count)];
+        stock.Employee = randomEmployee; // Assign the whole Employee object to the Stock
+    }
+
+    return stocks;
+});
+
 app.MapGet("/stocks/{symbol}", (string symbol, HttpContext http) =>
 {
     var jsonFilePath = Path.Combine(app.Environment.ContentRootPath, "Data", "stocks.json");

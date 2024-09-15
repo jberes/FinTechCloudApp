@@ -83,5 +83,8 @@ namespace FinTechCloud
 
         [JsonPropertyName("img_url")]
         public string ImgUrl { get; set; }
+
+        // New property to hold Employee data
+        public Employee Employee { get; set; }
     }
 }
