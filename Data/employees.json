@@ -1,6 +1,6 @@
 [
-  {
-    "employee": {
+  
+   {
       "employeeID": 1,
       "lastName": "Davolio",
       "firstName": "Nancy",
@@ -20,10 +20,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/woman-2.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/MiriamGraham.jpg",
       "fullName": "Ms. Nancy Davolio"
-    }
   },
   {
-    "employee": {
       "employeeID": 2,
       "lastName": "Fuller",
       "firstName": "Andrew",
@@ -43,10 +41,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/man-5.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/PradeepGupta.jpg",
       "fullName": "Dr. Andrew Fuller"
-    }
   },
   {
-    "employee": {
       "employeeID": 3,
       "lastName": "Leverling",
       "firstName": "Janet",
@@ -66,10 +62,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/woman-3.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/MeganBowen.jpg",
       "fullName": "Ms. Janet Leverling"
-    }
   },
   {
-    "employee": {
       "employeeID": 4,
       "lastName": "Peacock",
       "firstName": "Margaret",
@@ -89,10 +83,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/woman-5.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/HenriettaMueller.jpg",
       "fullName": "Mrs. Margaret Peacock"
-    }
   },
   {
-    "employee": {
       "employeeID": 5,
       "lastName": "Buchanan",
       "firstName": "Steven",
@@ -112,10 +104,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/man-6.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/GradyArchie.jpg",
       "fullName": "Mr. Steven Buchanan"
-    }
   },
   {
-    "employee": {
       "employeeID": 6,
       "lastName": "Suyama",
       "firstName": "Michael",
@@ -135,10 +125,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/man-10.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/AlexWilbur.jpg",
       "fullName": "Mr. Michael Suyama"
-    }
   },
   {
-    "employee": {
       "employeeID": 7,
       "lastName": "King",
       "firstName": "Robert",
@@ -158,10 +146,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/man-11.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/NestorWilke.jpg",
       "fullName": "Mr. Robert King"
-    }
   },
   {
-    "employee": {
       "employeeID": 8,
       "lastName": "Callahan",
       "firstName": "Laura",
@@ -181,10 +167,8 @@
       "photoPath": "https://users.infragistics.com/images/faces/woman-8.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/LynneRobbins.jpg", 
       "fullName": "Ms. Laura Callahan"
-    }
   },
   {
-    "employee": {
       "employeeID": 9,
       "lastName": "Dodsworth",
       "firstName": "Anne",
@@ -204,6 +188,5 @@
       "photoPath": "https://users.infragistics.com/images/faces/woman-13.png",
       "photoPathSquare": "https://users.infragistics.com/images/faces/JoniSherman.jpg", 
       "fullName": "Ms. Anne Dodsworth"
-    }
   }
 ]
